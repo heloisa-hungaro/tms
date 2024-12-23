@@ -1,0 +1,51 @@
+<form class="flex md:flex-row flex-col justify-center mx-4" [formGroup]="filterForm">
+  <div class="form-group flex flex-col md:mx-2 my-2">
+    <label for="title-filter">{{ 'Title:' }}</label>
+    <input type="text" id="title-filter" formControlName="title" class="border border-gray-500 rounded lg:min-w-72 min-w-60">
+  </div>
+  <div class="form-group flex flex-col md:mx-2 my-2">
+    <label for="description-filter" class="mx-2">{{ 'Description:' }}</label>
+    <input type="text" id="description-filter" formControlName="description" class="border border-gray-500 rounded lg:min-w-72 min-w-60">
+  </div>
+  <div class="flex flex-row md:mx-2 my-2 md:justify-start justify-center">
+    <div class="flex items-end mx-2">
+      <button (click)="filterTasks()"
+              class="bg-transparent border border-blue-500 rounded text-blue-700 py-1 px-2
+             hover:border-transparent hover:bg-blue-500 hover:text-white">
+        <!-- search icon SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        </svg>
+      </button>
+    </div>
+    <div class="flex items-end mx-2">
+      <button (click)="clearFilters()"
+              class="bg-transparent border border-blue-500 rounded text-blue-700 py-1 px-2
+             hover:border-transparent hover:bg-blue-500 hover:text-white">
+        <!-- clear icon SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9.75 14.25 12m0 0 2.25 2.25M14.25 12l2.25-2.25M14.25 12 12 14.25m-2.58
+            4.92-6.374-6.375a1.125 1.125 0 0 1 0-1.59L9.42 4.83c.21-.211.497-.33.795-.33H19.5a2.25 2.25 0 0 1 2.25 2.25v10.5a2.25 2.25 0 0
+            1-2.25 2.25h-9.284c-.298 0-.585-.119-.795-.33Z" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="flex flex-row items-end m-2 mb-4 md:justify-start justify-center">
+    <span class="mx-2">{{ 'Sort:' }}</span>
+    <button (click)="toggleSort()" class="flex flex-row justify-center text-blue-700">
+      <ng-container *ngIf="sort === 'ASC'; else descSortTemplate">
+        <!-- down icon SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25 12 21m0 0-3.75-3.75M12 21V3" />
+        </svg>
+      </ng-container>
+      <ng-template #descSortTemplate>
+        <!-- up icon SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75 12 3m0 0 3.75 3.75M12 3v18" />
+        </svg>
+      </ng-template>
+    </button>
+  </div>
+</form>

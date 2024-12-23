@@ -1,0 +1,40 @@
+<form class="flex flex-col justify-center items-center m-4" [formGroup]="editForm">
+  <span class="text-center uppercase text-2xl py-2 mx-8 border-b w-full">{{ isNewTask ? 'Create Task' : 'Edit Task' }}</span>
+  <div class="form-group flex flex-col items-center mx-2 my-3">
+    <label for="title-filter" class="self-start mb-1">{{ 'Title:' }}</label>
+    <input type="text" id="title-filter" formControlName="title" class="border border-gray-500 rounded min-w-72 md:min-w-96 max-w-2xl">
+  </div>
+  <div class="form-group flex flex-col items-center mx-2 my-3">
+    <label for="description-filter" class="self-start mb-1">{{ 'Description:' }}</label>
+    <textarea id="description-filter" formControlName="description" class="border border-gray-500 rounded min-w-72 md:min-w-96 max-w-2xl" rows="8"></textarea>
+  </div>
+  <div class="form-group flex flex-col items-center mx-2 my-3">
+    <label for="status-filter" class="self-start mb-1">{{ 'Status:' }}</label>
+    <select id="status-filter" formControlName="status" class="border border-gray-500 rounded min-w-72 md:min-w-96 max-w-2xl uppercase">
+      <option *ngFor="let statusData of orderedStatuses" [value]="statusData.status" class="uppercase">{{statusData.title}}</option>
+    </select>
+  </div>
+  <div class="flex flex-row justify-center mt-4">
+    <div class="mx-2">
+      <button (click)="confirmEdition()" [disabled]="this.editForm.controls.title.value?.trim() === '' || this.editForm.controls.description.value?.trim() === ''"
+              class="bg-transparent border border-blue-500 rounded text-blue-700 py-1 px-2
+             hover:border-transparent hover:bg-blue-500 hover:text-white
+             disabled:border-gray-600 disabled:bg-gray-300 disabled:text-gray-600">
+        <!-- confirm icon SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+        </svg>
+      </button>
+    </div>
+    <div class="mx-2">
+      <button (click)="cancelEdition()"
+              class="bg-transparent border border-blue-500 rounded text-blue-700 py-1 px-2
+             hover:border-transparent hover:bg-blue-500 hover:text-white">
+        <!-- cancel icon SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</form>

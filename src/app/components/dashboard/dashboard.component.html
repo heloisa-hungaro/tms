@@ -1,0 +1,36 @@
+<app-task-edit-modal *ngIf="isEditing; else boardTemplate"
+                     [task]="taskInEdit"
+                     [orderedStatuses]="orderedStatuses"
+                     (modalCloseEvent)="onTaskEditModalClose($event.canceled, $event.task, $event.isNew)">
+</app-task-edit-modal>
+
+<ng-template #boardTemplate>
+  <div class="md:sticky md:top-10 bg-white py-1">
+    <app-filters [(sort)]="sort" (filterTasksEvent)="getAllTasks({ title: $event.title, description: $event.description })"></app-filters>
+    <div class="flex justify-center mb-4">
+      <button (click)="editTask(undefined)"
+              class="bg-transparent border border-blue-500 rounded text-blue-700 py-1 px-2
+           hover:border-transparent hover:bg-blue-500 hover:text-white">
+        <!-- add icon SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="flex md:flex-row flex-col">
+    <ng-container *ngFor="let statusData of orderedStatuses">
+      <div class="md:basis-2/6 basis-full border-x flex flex-col align-items-center md:mt-0 mt-10">
+        <span class="uppercase text-2xl text-center mb-3 pb-1 sticky md:top-40 bg-white border-b font-medium">{{statusData.title}}</span>
+        <ng-container *ngIf="isLoading; else loadedCardsTemplate">
+          <!-- TODO: Add skeleton loader -->
+        </ng-container>
+        <ng-template #loadedCardsTemplate>
+          <ng-container *ngFor="let task of indexedTasks[statusData.status]">
+            <app-task-card [task]="task" (removeTaskEvent)="removeTask($event)" (editTaskEvent)="editTask($event)"></app-task-card>
+          </ng-container>
+        </ng-template>
+      </div>
+    </ng-container>
+  </div>
+</ng-template>
